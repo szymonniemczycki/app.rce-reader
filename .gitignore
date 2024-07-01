@@ -1,0 +1,6 @@
+public/resources/
+dist/resources/
+node_modules/
+.vscode/
+README.md
+.gitignore
