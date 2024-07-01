@@ -64,17 +64,17 @@
 <script>
 import { ref } from "vue";
 
-import { getTodayFormated } from "../../utils/getFormatedDate.js";
-import { fetchCsvData } from "../../utils/fetchCsvData.js";
-import { fetchWeatherData } from "../../utils/fetchWeatherData.js";
-import { prepareDataWidget } from "../../utils/prepareDataWidget.js";
+import { getTodayFormated } from "@/utils/getFormatedDate.js";
+import { fetchCsvData } from "@/utils/fetchCsvData.js";
+import { fetchWeatherData } from "@/utils/fetchWeatherData.js";
+import { prepareDataWidget } from "@/utils/prepareDataWidget.js";
 
-import DataLoader from "./DataLoader.vue";
-import TableWidget from "./TableWidget.vue";
-import ChartWidget from "./ChartWidget.vue";
-import SelectDate from "./SelectDate.vue";
-import ChangeDateButtons from "./ChangeDateButtons.vue";
-import NoDataInfo from "./NoDataInfo.vue";
+import DataLoader from "@/components/PageContent/DataLoader.vue";
+import TableWidget from "@/components/PageContent/TableWidget.vue";
+import ChartWidget from "@/components/PageContent/ChartWidget.vue";
+import SelectDate from "@/components/PageContent/SelectDate.vue";
+import ChangeDateButtons from "@/components/PageContent/ChangeDateButtons.vue";
+import NoDataInfo from "@/components/PageContent/NoDataInfo.vue";
 
 export default {
   name: "PageContent",

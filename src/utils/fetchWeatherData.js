@@ -51,7 +51,6 @@ export async function fetchWeatherData(date) {
         },
     };
 
-
     const weatherDataPublic = {
         hourly: {
             hour: [],

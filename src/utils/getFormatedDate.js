@@ -1,11 +1,9 @@
 export function getTodayFormated(soloYear = false) {
-
     let date = new Date(Date.now());
 
     if (soloYear) return date.getFullYear();
 
     const h = date.getHours();
-
     date = (h < 6) ? new Date(date.setDate(date.getDate() - 1)) : date;
 
     let d = date.getDate();

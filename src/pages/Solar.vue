@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import DataLoader from "../components/PageContent/DataLoader.vue";
-import PageContent from "../components/PageContent/PageContent.vue";
+import DataLoader from "@/components/PageContent/DataLoader.vue";
+import PageContent from "@/components/PageContent/PageContent.vue";
 
 export default {
   name: "SolarPage",
