@@ -31,19 +31,18 @@ const temperatureColor = {
 
 function getChartData(widgetChartData, page) {
   const label = widgetChartData.hour;
-  let barData = [];
   const restData = { ...widgetChartData };
+  let barData = [];
 
   if (page === "solar") {
     barData = widgetChartData.moneyValue;
     delete restData.moneyValue;
-  }
-  if (page === "weather") {
+  } else if (page === "weather") {
     barData = widgetChartData.pricesHourly;
     delete restData.pricesHourly;
   }
   delete restData.hour;
-  return { label: label, barData: barData, restData: restData };
+  return { label, barData, restData };
 }
 
 function getColors(barChartData = []) {
@@ -59,6 +58,7 @@ function getColors(barChartData = []) {
   for (let i = 0; i < countColors + 1; i++) {
     colorGroup[i] = Math.min(...arrPrices) + (delta / countColors) * i;
   }
+
   colorGroup[colorGroup.length - 1]++;
 
   for (let i = 0; i < arrPrices.length; i++) {
@@ -87,7 +87,7 @@ export default {
   setup(props) {
     const colorsLabel = ref([]);
     const infoLabel = ref([]);
-    const barChartData = ref([null]);
+    const barChartData = ref([]);
     const configDatasetsCharts = ref([]);
 
     const { ...linearChartData } = getChartData(props.chartWidgetData.hourly, props.page);
@@ -99,7 +99,11 @@ export default {
     if (props.page === "solar") {
       configDatasetsCharts.value.solar = [
         {
-          label: props.chartWidgetData.label.moneyValue,
+          label:
+            props.chartWidgetData.label.moneyValue +
+            " (" +
+            props.chartWidgetData.units.moneyValue +
+            ")/100",
           backgroundColor: colorsLabel.value.map(
             (colorGroup) => temperatureColor[colorGroup]
           ),
@@ -107,7 +111,11 @@ export default {
           order: 1,
         },
         {
-          label: props.chartWidgetData.label.pricesHourly,
+          label:
+            props.chartWidgetData.label.pricesHourly +
+            " (" +
+            props.chartWidgetData.units.pricesHourly +
+            ")",
           data: linearChartData.restData.pricesHourly,
           borderColor: "#FDB813",
           backgroundColor: "#FDB813",
@@ -115,7 +123,11 @@ export default {
           order: 0,
         },
         {
-          label: props.chartWidgetData.label.globalTiltedIrradiance,
+          label:
+            props.chartWidgetData.label.globalTiltedIrradiance +
+            " (" +
+            props.chartWidgetData.units.globalTiltedIrradiance +
+            ")",
           data: linearChartData.restData.globalTiltedIrradiance,
           borderColor: "#000",
           backgroundColor: "#000",
@@ -128,7 +140,11 @@ export default {
     if (props.page === "weather") {
       configDatasetsCharts.value.weather = [
         {
-          label: props.chartWidgetData.label.pricesHourly,
+          label:
+            props.chartWidgetData.label.pricesHourly +
+            " (" +
+            props.chartWidgetData.units.pricesHourly +
+            ")",
           data: barChartData.value,
           backgroundColor: colorsLabel.value.map(
             (colorGroup) => temperatureColor[colorGroup]
@@ -136,7 +152,11 @@ export default {
           order: 1,
         },
         {
-          label: props.chartWidgetData.label.temperature2m,
+          label:
+            props.chartWidgetData.label.temperature2m +
+            " (" +
+            props.chartWidgetData.units.temperature2m +
+            ")",
           data: linearChartData.restData.temperature2m.map((p) => p * 10),
           borderColor: "#000",
           backgroundColor: "#000",
@@ -144,7 +164,11 @@ export default {
           order: 0,
         },
         {
-          label: props.chartWidgetData.label.cloudCover,
+          label:
+            props.chartWidgetData.label.cloudCover +
+            " (" +
+            props.chartWidgetData.units.cloudCover +
+            ")",
           data: linearChartData.restData.cloudCover,
           borderColor: "#739BD0",
           backgroundColor: "#739BD0",
@@ -152,7 +176,11 @@ export default {
           order: 0,
         },
         {
-          label: props.chartWidgetData.label.uvIndex,
+          label:
+            props.chartWidgetData.label.uvIndex +
+            " (" +
+            props.chartWidgetData.units.uvIndex +
+            ")",
           data: props.chartWidgetData.hourly.uvIndex.map((uv) => uv * 100),
           borderColor: "#4B1E88",
           backgroundColor: "#4B1E88",
@@ -160,7 +188,11 @@ export default {
           order: 0,
         },
         {
-          label: props.chartWidgetData.label.sunshineDuration,
+          label:
+            props.chartWidgetData.label.sunshineDuration +
+            " (" +
+            props.chartWidgetData.units.sunshineDuration +
+            ")",
           data: linearChartData.restData.sunshineDuration,
           borderColor: "#FDB813 ",
           backgroundColor: "#FDB813 ",
@@ -184,7 +216,11 @@ export default {
         if (props.page === "solar") {
           configDatasetsCharts.value.solar = [
             {
-              label: props.chartWidgetData.label.moneyValue,
+              label:
+                props.chartWidgetData.label.moneyValue +
+                " (" +
+                props.chartWidgetData.units.moneyValue +
+                ")/100",
               backgroundColor: colorsLabel.value.map(
                 (colorGroup) => temperatureColor[colorGroup]
               ),
@@ -192,7 +228,11 @@ export default {
               order: 1,
             },
             {
-              label: props.chartWidgetData.label.pricesHourly,
+              label:
+                props.chartWidgetData.label.pricesHourly +
+                " (" +
+                props.chartWidgetData.units.pricesHourly +
+                ")",
               data: linearChartData.restData.pricesHourly,
               borderColor: "#FDB813",
               backgroundColor: "#FDB813",
@@ -200,7 +240,11 @@ export default {
               order: 0,
             },
             {
-              label: props.chartWidgetData.label.globalTiltedIrradiance,
+              label:
+                props.chartWidgetData.label.globalTiltedIrradiance +
+                " (" +
+                props.chartWidgetData.units.globalTiltedIrradiance +
+                ")",
               data: linearChartData.restData.globalTiltedIrradiance,
               borderColor: "#000",
               backgroundColor: "#000",
@@ -213,7 +257,11 @@ export default {
         if (props.page === "weather") {
           configDatasetsCharts.value.weather = [
             {
-              label: props.chartWidgetData.label.pricesHourly,
+              label:
+                props.chartWidgetData.label.pricesHourly +
+                " (" +
+                props.chartWidgetData.units.pricesHourly +
+                ")",
               data: barChartData.value,
               backgroundColor: colorsLabel.value.map(
                 (colorGroup) => temperatureColor[colorGroup]
@@ -221,7 +269,11 @@ export default {
               order: 1,
             },
             {
-              label: props.chartWidgetData.label.temperature2m,
+              label:
+                props.chartWidgetData.label.temperature2m +
+                " (" +
+                props.chartWidgetData.units.temperature2m +
+                ")",
               data: linearChartData.restData.temperature2m.map((p) => p * 10),
               borderColor: "#000",
               backgroundColor: "#000",
@@ -229,7 +281,11 @@ export default {
               order: 0,
             },
             {
-              label: props.chartWidgetData.label.cloudCover,
+              label:
+                props.chartWidgetData.label.cloudCover +
+                " (" +
+                props.chartWidgetData.units.cloudCover +
+                ")",
               data: linearChartData.restData.cloudCover,
               borderColor: "#739BD0",
               backgroundColor: "#739BD0",
@@ -237,7 +293,11 @@ export default {
               order: 0,
             },
             {
-              label: props.chartWidgetData.label.uvIndex,
+              label:
+                props.chartWidgetData.label.uvIndex +
+                " (" +
+                props.chartWidgetData.units.uvIndex +
+                ")",
               data: props.chartWidgetData.hourly.uvIndex.map((uv) => uv * 100),
               borderColor: "#4B1E88",
               backgroundColor: "#4B1E88",
@@ -245,7 +305,11 @@ export default {
               order: 0,
             },
             {
-              label: props.chartWidgetData.label.sunshineDuration,
+              label:
+                props.chartWidgetData.label.sunshineDuration +
+                " (" +
+                props.chartWidgetData.units.sunshineDuration +
+                ")",
               data: linearChartData.restData.sunshineDuration,
               borderColor: "#FDB813 ",
               backgroundColor: "#FDB813 ",

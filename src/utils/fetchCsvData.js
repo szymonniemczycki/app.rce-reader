@@ -25,6 +25,7 @@ function parseData(resultData) {
     const line = resultData.split("\n");
     arrData.push(line);
     const csvData = [];
+
     for (let i = 1; i < arrData[0].length - 1; i++) {
         csvData[i - 1] = arrData[0][i].split(";");
         let fHour = parseInt(csvData[i - 1][1]);
